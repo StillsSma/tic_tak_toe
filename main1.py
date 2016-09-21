@@ -2,40 +2,66 @@ def menu():
     print("Welcome to Tic Tak Toe!")
     print ("First player to move is X.  Second is O")
 
-def display():
-    for rows in board:
-        print(rows)
+def end():
+    choice = input("Game over, would you like to play again? y/n ")
+    if choice == "y":
+        game()
+    else:
+        exit()
+def display_board(board):
+    print(" " + '0' + "  " + '1' + "  " + '2')
+    print("0 " + board[0]['0,0'] + '|' + board[0]['1,0'] + '|' + board[0]['2,0'])
+    print("  -+-+-")
+    print("1 " + board[1]['0,1'] + '|' + board[1]['1,1'] + '|' + board[1]['2,1'])
+    print("  -+-+-")
+    print("2 " + board[2]['0,2'] + '|' + board[2]['1,2'] + '|' + board[2]['2,2'])
 
+def end_condition(board):
+    for dicts in board:
+        if all(x== "X" for x in dicts.values()) or all(x== "O" for x in dicts.values())  == True:
+            end()
+    columns = [ [board[0]['0,0'],board[1]['0,1'],board[2]['0,2']],
+                [board[0]['1,0'],board[1]['1,1'],board[2]['1,2']],
+                [board[0]['2,0'],board[1]['2,1'],board[2]['2,2']]]
 
-board = [["0,0","1,0","2,0"],
-         ["0,1","1,1","2,1"],
-         ["0,2","1,2","2,2"]]
+    for column in columns:
+        if all(x== "X" for x in column) or all(x== "Y" for x in column) == True:
+            end()
+    diagonals = [[board[0]['0,0'],board[1]['1,1'],board[2]['2,2']],
+                [board[2]['0,2'],board[1]['1,1'], board[0]['2,0']]]
+    for diagonal in diagonals:
+        if all(x== "X" for x in diagonal) or all(x== "Y" for x in diagonal) == True:
+            end()
 
-def playermove():
-    turn = 1
-    while True:
-        player = input("choose your position: ")
-        for indices, rows in list(enumerate(board)):
-            for indices2, locations in list(enumerate(rows)):
-                if locations == player:
-                    if turn == 1:
-                        board[indices][indices2] = "X"
-                    else:
-                        board[indices][indices2] = "O"
-        display()
-        turn = turn * -1
-        for rows in board:
-            if rows == ["X","X","X"] or rows == ["O","O","O"]:
-                print ("Game Over!")
-                answer = input("Play Again? y/n: ")
-                if answer == "y":
-                    menu()
-                else:
-                    exit()
 
 def game():
-    menu()
-    playermove()
+    board = [{"0,0": " ","1,0": " ","2,0": " "},
+             {"0,1": " ","1,1": " ","2,1": " "},
+             {"0,2": " ","1,2": " ","2,2" :" "}]
 
+    menu()
+    display_board(board)
+    turn = 1
+    while True:
+        playermove(turn,board)
+        display_board(board)
+        end_condition(board)
+        turn = turn * -1
+
+
+def playermove(turn,board):
+    player = input("choose your position(x,y) ")
+    for dicts in board:
+        for keys in dicts:
+            if keys == player:
+                if turn == 1:
+                    dicts[keys] = "X"
+                else:
+                    dicts[keys] = "O"
+
+
+board = [{"0,0": " ","1,0": " ","2,0": " "},
+         {"0,1": " ","1,1": " ","2,1": " "},
+         {"0,2": " ","1,2": " ","2,2" :" "}]
 
 game()

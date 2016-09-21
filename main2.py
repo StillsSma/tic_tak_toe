@@ -1,37 +1,9 @@
-def menu():
-    print("Welcome to Tic Tak Toe!")
-    print ("First player to move is X.  Second is O")
 
+board = [{"0,0": "hey ","1,0": " ","2,0": " "},
+         {"0,1": " ","1,1": " ","2,1": " "},
+         {"0,2": " ","1,2": " ","2,2" :" "}]
 
-
-
-def playermove():
-    turn = 1
-    while True:
-
-        board = [["0,2","1,2","2,2"],
-                 ["0,1","1,1","2,1"],
-                 ["0,0","1,0","2,0"]]
-
-        player = input("choose your position: ")
-        for indices, rows in list(enumerate(board)):
-            for indices2, locations in list(enumerate(rows)):
-                if player == locations:
-                    board[indices][indices2] == "X"
-        print (board)
-        turn = turn * -1
-
-def game():
-    menu()
-    playermove()
-
-
-
-
-
-
-
-
-
-
-game()
+columns = [[board[0]['0,0'], board[1]['0,1'], board[2]['0,2']]]
+for column in columns:
+    print (columns)
+print (columns)
